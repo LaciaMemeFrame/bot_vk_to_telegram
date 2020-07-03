@@ -7,6 +7,7 @@ import telebot
 import configparser
 import logging
 from telebot.types import InputMediaPhoto
+from time import sleep
 
 # Считываем настройки
 config_path = os.path.join(sys.path[0], 'settings.ini')
@@ -29,6 +30,9 @@ max_message_length = 4091
 # Инициализируем телеграмм бота
 bot = telebot.TeleBot(BOT_TOKEN)
 
+def two_factor():
+    code = input('код:')
+    return code
 
 # Получаем данные из vk.com
 def get_data(domain_vk, count_vk):
@@ -39,7 +43,7 @@ def get_data(domain_vk, count_vk):
     global config_path
 
     if VK_TOKEN is not None:
-        vk_session = vk_api.VkApi(LOGIN, PASSWORD, VK_TOKEN)
+        vk_session = vk_api.VkApi(LOGIN, PASSWORD, VK_TOKEN, auth_handler=two_factor)
         vk_session.auth(token_only=True)
     else:
         vk_session = vk_api.VkApi(LOGIN, PASSWORD)
