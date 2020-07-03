@@ -200,3 +200,6 @@ def send_posts_img(img):
 
 if __name__ == '__main__':
     check_posts_vk()
+    while True:
+        check_posts_vk()
+        sleep(30)
